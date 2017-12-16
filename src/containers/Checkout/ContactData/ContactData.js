@@ -7,6 +7,7 @@ import Input from '../../../components/UI/Input/Input'
 import {connect} from 'react-redux'
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler'
 import * as actions from "../../../store/actions/index";
+import {checkValidity, updateObject} from "../../../shared/utility";
 
 class ContactData extends Component {
     state = {
@@ -98,33 +99,7 @@ class ContactData extends Component {
         },
         formIsValid: false
     };
-    checkValidity = (value, rules) => {
 
-
-        let isValid = true;
-
-        if (rules.required) {
-            isValid = value.trim() !== '' && isValid
-        }
-
-        if (rules.minLength) {
-            isValid = value.length >= rules.minLength && isValid
-        }
-
-        if (rules.maxLength) {
-            isValid = value.length <= rules.maxLength && isValid
-        }
-
-
-        if (rules.isEmail) {
-            let pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
-            isValid = pattern.test(value) && isValid;
-        }
-
-        return isValid;
-
-
-    }
     orderHandler = (event) => {
         event.preventDefault();
 
@@ -139,7 +114,8 @@ class ContactData extends Component {
         const order = {
             ingredients: this.props.ings,
             price: this.props.price,
-            orderData: formData
+            orderData: formData,
+            userId: this.props.userId
 
         }
 
@@ -150,17 +126,18 @@ class ContactData extends Component {
     };
 
     inputChangedHandler = (event, inputId) => {
-        const updatedOrderForm = {
-            ...this.state.orderForm
-        };
-        const updatedFormElement = {...updatedOrderForm[inputId]};
+
+
+        const updatedFormElement = updateObject(this.state.orderForm[inputId], {
+            value: event.target.value,
+            valid: checkValidity(event.target.value, this.state.orderForm[inputId].validation),
+            touched: true
+        });
         //console.log(event.target.value)
+        const updatedOrderForm = updateObject(this.state.orderForm, {
+            [inputId]: updatedFormElement
+        })
 
-        updatedFormElement.value = event.target.value;
-        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation)
-        updatedFormElement.touched = true
-
-        updatedOrderForm[inputId] = updatedFormElement;
 
 
         let formIsValid = true
@@ -220,7 +197,8 @@ const mapStateToProps = (state) => {
         ings: state.burgerBuilder.ingredients,
         price: state.burgerBuilder.totalPrice,
         loading: state.order.loading,
-        token: state.auth.token
+        token: state.auth.token,
+        userId: state.auth.userId
     }
 
 };

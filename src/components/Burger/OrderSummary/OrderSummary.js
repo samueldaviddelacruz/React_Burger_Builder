@@ -5,10 +5,6 @@ import Button from '../../UI/Button/Button'
 
 
 class OrderSummary extends Component {
-    //this should be a functional component
-    componentWillUpdate(){
-        console.log('OrderSummary will update keks')
-    }
 
 
   

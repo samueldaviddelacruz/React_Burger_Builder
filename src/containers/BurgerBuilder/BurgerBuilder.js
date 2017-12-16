@@ -13,8 +13,7 @@ import {connect} from 'react-redux'
 import * as actions from "../../store/actions/index";
 
 
-
-class BurgerBuilder extends Component {
+export class BurgerBuilder extends Component {
     state = {
 
         purchasing: false,
@@ -32,7 +31,7 @@ class BurgerBuilder extends Component {
             
         })
         */
-        this.props.onInitIngredietns();
+        this.props.onInitIngredients();
     }
 
 
@@ -149,7 +148,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onIngredientAdded: (ingName) => dispatch(actions.addIngredient(ingName)),
         onIngredientRemoved: (ingName) => dispatch(actions.removeIngredient(ingName)),
-        onInitIngredietns: () => dispatch(actions.initIngredients()),
+        onInitIngredients: () => dispatch(actions.initIngredients()),
         onInitPurchase: () => dispatch(actions.purchaseInit()),
         onSetAuthRedirectPath: (path) => dispatch(actions.setAuthRedirectPath(path))
     }

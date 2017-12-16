@@ -6,6 +6,7 @@ import classes from './Auth.css'
 import {connect} from 'react-redux'
 import * as actions from "../../store/actions/index";
 import {Redirect} from 'react-router-dom'
+import {checkValidity, updateObject} from "../../shared/utility";
 
 class Auth extends Component {
     state = {
@@ -49,45 +50,21 @@ class Auth extends Component {
             this.props.onSetAuthRedirectPath();
         }
     }
-    checkValidity = (value, rules) => {
 
-
-        let isValid = true;
-
-        if (rules.required) {
-            isValid = value.trim() !== '' && isValid
-        }
-
-        if (rules.minLength) {
-            isValid = value.length >= rules.minLength && isValid
-        }
-
-        if (rules.maxLength) {
-            isValid = value.length <= rules.maxLength && isValid
-        }
-
-
-        if (rules.isEmail) {
-            let pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
-            isValid = pattern.test(value) && isValid;
-        }
-
-        return isValid;
-
-
-    }
 
 
     inputChangeHandler = (event, controlName) => {
-        const updatedControls = {
-            ...this.state.controls,
-            [controlName]: {
-                ...this.state.controls[controlName],
+
+        const updatedControls = updateObject(this.state.controls, {
+            [controlName]: updateObject(this.state.controls[controlName], {
                 value: event.target.value,
-                valid: this.checkValidity(event.target.value, this.state.controls[controlName].validation),
+                valid: checkValidity(event.target.value, this.state.controls[controlName].validation),
                 touched: true
-            }
-        }
+            })
+        })
+
+
+
         this.setState({
             controls: updatedControls
         })
