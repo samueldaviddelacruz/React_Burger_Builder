@@ -53,7 +53,7 @@ export const auth = (email, password, isSignup) => {
             returnSecureToken: true
         }
 
-        const apiKey = 'AIzaSyBcbPCWtXwmIPnjFH9woS_46kNpgGrOZig'
+        const apiKey = ''
         let url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${apiKey}`
         if (!isSignup) {
             url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${apiKey}`
