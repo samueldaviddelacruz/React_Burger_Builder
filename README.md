@@ -1,5 +1,15 @@
 # React_Burger_Builder
 Burger builder demo project to learn more about the react ecosystem.
+## How to Run the project
+Install dependencies:
+```
+npm install
+```
+Then proceed to build and run the project
+```
+npm start
+```
+it will be running on localhost:3000
 
 ## Built With
 
