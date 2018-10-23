@@ -26,7 +26,7 @@ class Layout extends Component {
     render(){
         return (
 
-            <Aux>
+        <Aux>
                 <Toolbar isAuth={this.props.isAuthenticated} drawerToggleClicked={this.sideDrawerToggleHandler}/>
                 <SideDrawer isAuth={this.props.isAuthenticated} open={this.state.showSideDrawer}
                             closed={this.sideDrawerClosedHandler}/>
@@ -36,9 +36,6 @@ class Layout extends Component {
                 {this.props.children}
             </main>
         </Aux>
-
-
-
         )
     }
   
