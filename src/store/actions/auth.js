@@ -1,6 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import axios from "axios";
-
+import keys from "../../config/keys"
 export const authStart = () => {
   return {
     type: actionTypes.AUTH_START
@@ -50,7 +50,8 @@ export const auth = (email, password, isSignup) => {
       returnSecureToken: true
     };
 
-    const apiKey = "";
+    const apiKey = keys.GOOGLE_API_KEY;
+
     let url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${apiKey}`;
     if (!isSignup) {
       url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${apiKey}`;
