@@ -11,8 +11,6 @@
 
 /.idea
 
-# ignore private keys
-/src/config/keys.js
 
 # misc
 .DS_Store
