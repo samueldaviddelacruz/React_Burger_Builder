@@ -10,11 +10,11 @@ script:
 
 deploy:
   provider: elasticbeanstalk
-  region: $AWS_REGION
-  app: $AWS_APP_NAME
-  env: $AWS_ENV_NAME
-  bucket_name: $AWS_APP_NAME
-  bucket_path: $AWS_BUCKET_PATH
+  region: "us-west-2"
+  app: "burger-builder-react"
+  env: "BurgerBuilderReact-env"
+  bucket_name: "elasticbeanstalk-us-west-2-523999790158"
+  bucket_path: "burger-builder-react"
   on:
     branch: master
   access_key_id: $AWS_ACCESS_KEY
