@@ -7,3 +7,16 @@ before_install:
 
 script:
   - docker run samuel023/docker-burger-builder npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: $AWS_REGION
+  app: $AWS_APP_NAME
+  env: $AWS_ENV_NAME
+  bucket_name: $AWS_APP_NAME
+  bucket_path: $AWS_BUCKET_PATH
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
